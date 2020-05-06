@@ -58,11 +58,9 @@ TypoEditor.prototype = new ObjectEditor();
 <script>
 function SupEditor() {
 	this.data = [
-		{ id:'1', name:'Prévisionnel' },
-		{ id:'2', name:'Historique' },
-		{ id:'3', name:'En validation' },
-		{ id:'4', name:'En cours' },
-		{ id:'5', name:'A vérifier' },
+		{% for systeme_information in systeme_informations %}
+		{ id:'{{ systeme_information.id }}', name:'{{ systeme_information.usualName }}' },
+		{% endfor %}
 	];
 }
 
