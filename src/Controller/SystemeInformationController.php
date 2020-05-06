@@ -11,11 +11,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\Confidentialite;
-use App\Entity\ConfidentialiteRepository;
+use App\Repository\ConfidentialiteRepository;
 use App\Entity\Domaine;
-use App\Entity\DomaineRepository;
+use App\Repository\DomaineRepository;
 use App\Entity\TypologyMI;
-use App\Entity\TypologyMIRepository;
+use App\Repository\TypologyMIRepository;
 
 /**
  * @Route("/systeme/information")
@@ -35,10 +35,16 @@ class SystemeInformationController extends AbstractController
     /**
      * @Route("/aggridview", name="aggridview", methods={"GET","POST"})
      */
-    public function aggrid(SystemeInformationRepository $systemeInformationRepository): response
+    public function aggrid(SystemeInformationRepository $systemeInformationRepository, 
+                            DomaineRepository $domaineRepository, 
+                            ConfidentialiteRepository $confidentialiteRepository,
+                            TypologyMIRepository $typologyMIRepository): response
     {
         return $this->render('ag-grid.html.twig', [
             'systeme_informations' => $systemeInformationRepository->findAll(),
+            'domaines' => $domaineRepository->findAll(),
+            'confidentialites' => $confidentialiteRepository->findAll(),
+            'types' => $typologyMIRepository->findAll(),
         ]);
     }
     /**

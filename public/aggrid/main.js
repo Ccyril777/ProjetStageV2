@@ -11,15 +11,20 @@ ObjectCellRenderer.prototype.init = function (params) {
 ObjectCellRenderer.prototype.refresh = function(params) {
 	this.span.innerHTML = '';
 	var nb = 1;
+	this.refresh(params);
+	if(params.value) {
+		//params.api.onRowHeightChanged();
+	}
+}
+
+ObjectCellRenderer.prototype.refresh = function(params) {
 	if(params.value) {
 		var val = '';
 		val = params.value.val.split(';');
 		nb = val.length;
-		console.log("Nb=" + nb);
 		val = val.join('<br>');
 		this.span.innerHTML = val;
 		params.node.setRowHeight(25*nb);
-		params.api.onRowHeightChanged();
 	}
 }
 
@@ -69,17 +74,6 @@ ObjectEditor.prototype.destroy = function () {
 ObjectEditor.prototype.isPopup = function () {
     return true;
 };
-ObjectEditor.prototype.getValue = function () {
-
-    return {id:this.myDropdown.getValue(),val:this.myDropdown.getText()};
-};
-
-ObjectEditor.prototype.destroy = function () {
-};
-
-ObjectEditor.prototype.isPopup = function () {
-    return true;
-};
 
 var onKeyDown = function(event) {
 	var key = event.which || event.keyCode;
@@ -87,15 +81,5 @@ var onKeyDown = function(event) {
 		key == 39 || // right
 		key == 9 ) {  // tab
 		event.stopPropagation();
-	}var onKeyDown = function(event) {
-		var key = event.which || event.keyCode;
-		if (key == 37 ||  // left
-			key == 39 || // right
-			key == 9 ) {  // tab
-			event.stopPropagation();
-		}
-
 	}
 }
-
-	

@@ -8,19 +8,9 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
-    <h1>Hello ! ✅</h1>
+<button id='addRow' >Ajouter une ligne</button><br/><br/>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/Audoli/Documents/Dev/SitesWeb/Projet2/src/Controller/TestController.php'|file_link(0) }}">src/Controller/TestController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/Audoli/Documents/Dev/SitesWeb/Projet2/templates/test/index.html.twig'|file_link(0) }}">templates/test/index.html.twig</a></code></li>
-    </ul>
-</div>
-
-<div id="myGrid" style="height: 200px; width:500px;" class="ag-theme-balham"></div>
-
- <button id='addRow' >Ajouter une ligne</button>
+<div id="myGrid" style="height: 50rem; width:150rem;" class="ag-theme-balham"></div>
 
 {% endblock %}
 
@@ -28,45 +18,43 @@
 <script src="{{ asset('jsuite/jsuites.js') }}"></script>
 <script src="{{ asset('aggrid/ag-grid-enterprise.min.js') }}"></script>
 <script src="{{ asset('aggrid/main.js') }}"></script>
+
 <script>
 function DomEditor() {
 	this.data = [
-		{ id:'1', name:'Prévisionnel' },
-		{ id:'2', name:'Historique' },
-		{ id:'3', name:'En validation' },
-		{ id:'4', name:'En cours' },
-		{ id:'5', name:'A vérifier' },
+		{% for domaine in domaines %}
+		{ id:'{{ domaine.id }}', name:'{{ domaine.domaineName }}' },
+		{% endfor %}
 	];
 }
 
 DomEditor.prototype = new ObjectEditor();
 </script>
+
 <script>
 function ConfEditor() {
 	this.data = [
-		{ id:'1', name:'Prévisionnel' },
-		{ id:'2', name:'Historique' },
-		{ id:'3', name:'En validation' },
-		{ id:'4', name:'En cours' },
-		{ id:'5', name:'A vérifier' },
+		{% for confidentialite in confidentialites %}
+		{ id:'{{ confidentialite.id }}', name:'{{ confidentialite.confidentialiteName }}' },
+		{% endfor %}
 	];
 }
 
 ConfEditor.prototype = new ObjectEditor();
 </script>
+
 <script>
 function TypoEditor() {
 	this.data = [
-		{ id:'1', name:'Prévisionnel' },
-		{ id:'2', name:'Historique' },
-		{ id:'3', name:'En validation' },
-		{ id:'4', name:'En cours' },
-		{ id:'5', name:'A vérifier' },
+		{% for type in types %}
+		{ id:'{{ type.id }}', name:'{{ type.shortName }}' },
+		{% endfor %}
 	];
 }
 
 TypoEditor.prototype = new ObjectEditor();
 </script>
+
 <script>
 function SupEditor() {
 	this.data = [
@@ -81,12 +69,10 @@ function SupEditor() {
 SupEditor.prototype = new ObjectEditor();
 </script>
 
-
 {{ encore_entry_script_tags('app') }}
 {% endblock %}
 
 {% block javascripts %}
-{{ encore_entry_script_tags('charge') }}
 <script src="{{ asset('aggrid/endmain.js') }}"></script>
 
 {% endblock %}
