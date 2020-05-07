@@ -39,7 +39,6 @@ function ObjectEditor() {
 ObjectEditor.prototype.init = function (params) {
 	console.log(params);
     this.container = document.createElement('div');
-
 	this.myDropdown=jSuites.dropdown(this.container, {
 		data:this.data,
 		type:'default',
@@ -82,4 +81,5 @@ var onKeyDown = function(event) {
 		key == 9 ) {  // tab
 		event.stopPropagation();
 	}
-}
+};
+

@@ -48,7 +48,7 @@ class SystemeInformationFixtures extends Fixture //implements LoggerAwareInterfa
         }
 
 //première création des SI
-        for ($i = 1; $i <= 500; $i++) {
+        for ($i = 1; $i <= 30; $i++) {
             $alea = $faker->numberBetween(1,count($confidentialites));
             $maconfidentialite = $confidentialites[$alea];
             $alea = $faker->numberBetween(1,count($domaines));
@@ -87,12 +87,6 @@ class SystemeInformationFixtures extends Fixture //implements LoggerAwareInterfa
             unset($systemeInformationsCopie[$alea]);
         }
 
-
         $manager->flush();
-            
-        
     }
-
-    
-
 }

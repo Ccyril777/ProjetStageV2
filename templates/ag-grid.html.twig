@@ -3,10 +3,6 @@
 {% block title %}Hello TestController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
 <button id='addRow' >Ajouter une ligne</button><br/><br/>
 
@@ -67,7 +63,35 @@ function SupEditor() {
 SupEditor.prototype = new ObjectEditor();
 </script>
 
-{{ encore_entry_script_tags('app') }}
+<script>
+
+var columns = [
+	{headerName: 'ID', field: 'id', sortable: true, filter: true, editable: true},
+	{headerName: 'Nom usuel', field: 'usual_name', sortable: true, filter: true, editable: true},
+	{headerName: 'Nom SII', field: 'sii_name', sortable: true, filter: true, editable: true},
+	{headerName: 'Description', field: 'description', sortable: true, filter: true, editable: true},
+	{headerName: 'Confidentialité', field: 'confidentialite', sortable: true, filter: true, editable: true, cellRenderer: ObjectCellRenderer,cellEditor: ConfEditor},
+    {headerName: 'Typologie MI', field: 'typology', sortable: true, filter: true, editable: true, cellRenderer: ObjectCellRenderer,cellEditor: TypoEditor},
+    {headerName: 'Domaine', field: 'domain', sortable: true, filter: true, editable: true, cellRenderer: ObjectCellRenderer,cellEditor: DomEditor},
+    {headerName: 'SI Support', field: 'si_support', sortable: true, filter: true, editable: true, cellRenderer: ObjectCellRenderer,cellEditor: SupEditor}
+];
+
+var gridOptions = {
+    columnDefs: columns,
+	rowData: [
+		{% for systeme_information in systeme_informations %}
+		{id:'{{ systeme_information.id }}',
+		usual_name: '{{ systeme_information.usualName }}',
+		sii_name: '{{ systeme_information.siiName }}',
+        description:'{{ systeme_information.description }}',
+		domaine: {'id':'{{ systeme_information.domaine.id }}', 'val':'{{ systeme_information.domaine.domaineName }}' },
+        confidentialite: {'id':'{{ systeme_information.confidentialite.id }}', 'val':'{{ systeme_information.confidentialite.confidentialiteName }}' },
+		typology: {'id':'{{ systeme_information.type.id }}', 'val':'{{ systeme_information.type.shortName }}' },
+		},
+		{% endfor %}
+	]
+};
+</script>
 {% endblock %}
 
 {% block javascripts %}
